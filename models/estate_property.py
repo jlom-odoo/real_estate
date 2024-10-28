@@ -21,6 +21,7 @@ class EstateProperty(models.Model):
     date_availability = fields.Date(
         copy=False, default=lambda self: fields.Date.add(fields.Date.today(), months=3))
     expected_price = fields.Float(required=True)
+    best_offer = fields.Float(compute="_compute_best_offer")
     selling_price = fields.Float(readonly=True, copy=False)
     bedrooms = fields.Integer(default=2)
     living_area = fields.Integer(string="Living Area (sqm)")
@@ -43,3 +44,8 @@ class EstateProperty(models.Model):
     def _compute_total_area(self):
         for property in self:
             property.total_area = property.living_area + property.garden_area
+
+    @api.depends("offer_ids.price")
+    def _compute_best_offer(self):
+        for property in self:
+            property.best_offer = max(property.offer_ids.mapped("price"), default=0)
