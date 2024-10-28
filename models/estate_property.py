@@ -16,6 +16,7 @@ class EstateProperty(models.Model):
         ("canceled", "Canceled"),
     ], string="Status", copy=False, required=True, default="new")
     property_type_id = fields.Many2one(comodel_name="estate.property.type")
+    tag_ids = fields.Many2many(string="Property Tags", comodel_name="estate.property.tag")
     postcode = fields.Char()
     date_availability = fields.Date(
         copy=False, default=lambda self: fields.Date.add(fields.Date.today(), months=3))
