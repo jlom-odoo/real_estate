@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+from odoo.exceptions import UserError
 
 
 class EstatePropertyOffer(models.Model):
@@ -24,3 +25,16 @@ class EstatePropertyOffer(models.Model):
         for offer in self:
             create_date = fields.Date.to_date(offer.create_date)
             offer.validity = (offer.date_deadline - create_date).days
+
+    def action_accept_offer(self):
+        self.ensure_one()
+        if self.property_id.offer_ids.filtered(lambda o: o.state == "accepted" and o.id != self.id):
+            raise UserError("A property can only have one accepted offer")
+        
+        self.state = "accepted"
+        self.property_id.selling_price = self.price
+        self.property_id.buyer_id = self.partner_id
+    
+    def action_refuse_offer(self):
+        for record in self:
+            record.state = "refused"
