@@ -41,6 +41,7 @@
             <form string="Property">
                 <header>
                     <button name="action_sell_property" type="object" string="Sold"/>
+                    <button name="action_cancel_property" type="object" string="Cancel"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
