@@ -1,5 +1,6 @@
 from odoo import api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
+from odoo.tools.float_utils import float_compare
 
 
 class EstateProperty(models.Model):
@@ -46,6 +47,12 @@ class EstateProperty(models.Model):
     buyer_id = fields.Many2one(comodel_name="res.partner", ondelete="restrict")
     salesperson_id = fields.Many2one(comodel_name="res.users", ondelete="restrict", default=lambda self: self.env.user)
 
+    @api.constrains("expected_price", "selling_price")
+    def _check_selling_price(self):
+        for property in self:
+            if float_compare(property.selling_price, property.expected_price * 0.9, precision_digits=2) < 0:
+                raise ValidationError("The selling price of a property can not be less than 90% of its expected price")
+    
     @api.depends("living_area", "garden_area")
     def _compute_total_area(self):
         for property in self:
