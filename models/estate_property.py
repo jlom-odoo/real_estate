@@ -14,7 +14,7 @@ class EstateProperty(models.Model):
         ("offer_accepted", "Offer Accepted"),
         ("sold", "Sold"),
         ("canceled", "Canceled"),
-    ])
+    ], copy=False, required=True, default="new")
     postcode = fields.Char()
     date_availability = fields.Date(
         copy=False, default=lambda self: fields.Date.add(fields.Date.today(), months=3))
