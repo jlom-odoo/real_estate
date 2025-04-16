@@ -88,6 +88,8 @@
                 <field name="living_area"/>
                 <field name="facades"/>
                 <filter string="Available" name="available" domain="[('state', 'in', ['new', 'offer_received'])]"/>
+                <separator/>
+                <filter string="Archived" name="archived" domain="[('active', '=', False)]"/>
                 <group string="Group By">
                     <filter string="Postcode" name="postcode" context="{'group_by': 'postcode'}"/>
                 </group>
