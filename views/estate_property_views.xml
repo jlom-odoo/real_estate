@@ -22,7 +22,7 @@
                 <field name="name" string="Title"/>
                 <field name="postcode"/>
                 <field name="bedrooms"/>
-                <field name="living_area" string="Living Area (sqm)"/>
+                <field name="living_area"/>
                 <field name="expected_price"/>
                 <field name="selling_price"/>
                 <field name="date_availability" string="Available From"/>
@@ -81,7 +81,7 @@
             <search string="Search Properties">
                 <field name="name"/>
                 <field name="postcode"/>
-                <field name="living_area" string="Living Area (sqm)"/>
+                <field name="living_area"/>
             </search>
         </field>
     </record>
