@@ -73,4 +73,16 @@
             </form>
         </field>
     </record>
+
+    <record id="estate_property_view_search" model="ir.ui.view">
+        <field name="name">estate.property.search</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <search string="Search Properties">
+                <field name="name"/>
+                <field name="postcode"/>
+                <field name="living_area" string="Living Area (sqm)"/>
+            </search>
+        </field>
+    </record>
 </odoo>
