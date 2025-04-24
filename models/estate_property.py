@@ -64,4 +64,7 @@ class EstateProperty(models.Model):
         return True
     
     def action_cancel(self):
+        if self.filtered(lambda p: p.state == "sold"):
+            raise UserError(_("A sold property can not be canceled!"))
+        self.filtered(lambda p: p.state != "canceled").write({"state": "canceled"})
         return True
