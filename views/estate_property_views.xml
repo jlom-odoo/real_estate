@@ -36,6 +36,10 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Property">
+                <header>
+                    <button name="action_sold" string="Sold" class="btn-primary" type="object"/>
+                    <button name="action_cancel" string="Cancel" type="object"/>
+                </header>
                 <sheet>
                     <field name="active" invisible="1"/>
                     <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>

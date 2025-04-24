@@ -1,4 +1,5 @@
-from odoo import api, fields, models
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class EstateProperty(models.Model):
@@ -55,3 +56,12 @@ class EstateProperty(models.Model):
     def _onchange_garden(self):
         self.garden_area = self.garden and 10
         self.garden_orientation = self.garden and "north"
+
+    def action_sold(self):
+        if self.filtered(lambda p: p.state == "canceled"):
+            raise UserError(_("A canceled property can not be sold!"))
+        self.filtered(lambda p: p.state != "sold").write({"state": "sold"})
+        return True
+    
+    def action_cancel(self):
+        return True
