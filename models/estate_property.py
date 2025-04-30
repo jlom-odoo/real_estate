@@ -6,6 +6,11 @@ class EstateProperty(models.Model):
     _name = "estate.property"
     _description = "Property"
 
+    _sql_constraints = [
+        ("check_expected_price", "CHECK(expected_price > 0)", "The expected price must be greater than 0!"),
+        ("check_selling_price", "CHECK(selling_price >= 0)", "The selling price can't be less than 0!"),
+    ]
+
     name = fields.Char(required=True)
     description = fields.Text()
     active = fields.Boolean(default=True)
