@@ -39,6 +39,7 @@
                 <header>
                     <button name="action_sold" string="Sold" class="btn-primary" type="object"/>
                     <button name="action_cancel" string="Cancel" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold"/>
                 </header>
                 <sheet>
                     <field name="active" invisible="1"/>
@@ -59,7 +60,6 @@
                             <field name="expected_price"/>
                             <field name="best_offer"/>
                             <field name="selling_price"/>
-                            <field name="state"/>
                         </group>
                     </group>
                     <notebook>
@@ -72,8 +72,8 @@
                                     <field name="facades"/>
                                     <field name="garage"/>
                                     <field name="garden"/>
-                                    <field name="garden_area"/>
-                                    <field name="garden_orientation"/>
+                                    <field name="garden_area" invisible="not garden"/>
+                                    <field name="garden_orientation" invisible="not garden"/>
                                     <field name="total_area"/>
                                 </group>
                             </group>
