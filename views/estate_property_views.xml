@@ -37,8 +37,12 @@
         <field name="arch" type="xml">
             <form string="Property">
                 <header>
-                    <button name="action_sold" string="Sold" class="btn-primary" type="object"/>
-                    <button name="action_cancel" string="Cancel" type="object"/>
+                    <button name="action_sold" string="Sold" class="btn-primary" type="object"
+                            invisible="state != 'offer_accepted'"/>
+                    <button name="action_sold" string="Sold" type="object"
+                            invisible="state in ['offer_accepted', 'sold', 'canceled']"/>
+                    <button name="action_cancel" string="Cancel" type="object"
+                            invisible="state in ['sold', 'canceled']"/>
                     <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold"/>
                 </header>
                 <sheet>
@@ -60,6 +64,7 @@
                             <field name="expected_price"/>
                             <field name="best_offer"/>
                             <field name="selling_price"/>
+                            <field name="state"/>
                         </group>
                     </group>
                     <notebook>
