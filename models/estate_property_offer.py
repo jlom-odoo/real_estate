@@ -20,6 +20,7 @@ class EstatePropertyOffer(models.Model):
     deadline_date = fields.Date(compute="_compute_deadline_date", inverse="_inverse_deadline_date")
     partner_id = fields.Many2one(comodel_name="res.partner", required=True)
     property_id = fields.Many2one(comodel_name="estate.property", required=True)
+    property_type_id = fields.Many2one(related="property_id.property_type_id", store=True)
 
     @api.depends("validity")
     def _compute_deadline_date(self):
