@@ -47,3 +47,14 @@ class EstatePropertyOffer(models.Model):
         for offer in self:
             offer.state = "refused"
         return True
+    
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            property_id = self.env["estate.property"].browse(vals["property_id"])
+            offer_ids = property_id.offer_ids
+            if offer_ids and vals["price"] < max(offer_ids.mapped("price"), default=0):
+                raise UserError("A new offer can't have a lower price than the highest current offer")
+            elif not offer_ids:
+                property_id.write({"state": "offer_received"})
+        return super().create(vals_list)
