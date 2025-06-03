@@ -39,11 +39,25 @@
                 <field name="state"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
-                            <field name="name"/>
-                            <div t-if="record.state.raw_value == 'new'">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="o_kanban_record_headings mt4">
+                                <field name="name" class="o_kanban_record_title"/>
+                            </div>
+                            <div name="new_property" t-if="record.state.raw_value == 'new'">
                                 This is new!
                             </div>
+                            <div name="prices" class="mb16">
+                                <div name="expected_price">
+                                    Expected Price: <field name="expected_price"/>
+                                </div>
+                                <div name="best_offer" t-if="record.best_offer.raw_value > 0">
+                                    Best Offer: <field name="best_offer"/>
+                                </div>
+                                <div name="selling_price" t-if="record.state.raw_value == 'offer_accepted' || record.state.raw_value == 'sold'">
+                                    Selling Price: <field name="selling_price"/>
+                                </div>
+                            </div>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         </div>
                     </t>
                 </templates>
